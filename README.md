@@ -1,1 +1,1 @@
-# MybatisStudy
+# mybatisStudy
