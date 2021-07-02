@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<!--核心配置文件-->
+<configuration>
+    <!--环境转换设置-->
+    <!--在xml中，所有的标签都可以设置顺序，properties放在第一位-->
+    <!--引入外部配置文件，优先使用外部文件的配置-->
+    <properties resource="db.properties">
+        <property name="pwd" value="111111"/>
+    </properties>
+    <typeAliases>
+        <!--实体类比较少的情况下使用别名配置-->
+        <typeAlias type="com.yang.pojo.User" alias="User"></typeAlias>
+
+        <!--实体类较多的情况下使用这种包名的配置-->
+        <package name="com.yang.pojo"/>
+    </typeAliases>
+    <environments default="development">
+        <environment id="development">
+            <!--事务管理设置-->
+            <transactionManager type="JDBC"/>
+            <!--数据源设置，是否使用连接池-->
+            <dataSource type="POOLED">
+                <property name="driver" value="com.mysql.cj.jdbc.Driver"/>
+                <property name="url" value="jdbc:mysql://localhost:3306/mybatis?useSLL=true&amp;useUnicode=true&amp;characterEncoding=UTF-8"/>
+                <property name="username" value="root"/>
+                <property name="password" value="123456"/>
+            </dataSource>
+            <!--<dataSource type="POOLED">
+                <property name="driver" value="${driver}"/>
+                <property name="url" value="${url}"/>
+                <property name="username" value="${username}"/>
+                <property name="password" value="${password}"/>
+            </dataSource>-->
+        </environment>
+        <environment id="test">
+            <transactionManager type="JDBC"/>
+            <dataSource type="POOLED">
+                <property name="driver" value="com.mysql.cj.jdbc.Driver"/>
+                <property name="url" value="jdbc:mysql://localhost:3306/mybatis?useSLL=true&amp;useUnicode=true&amp;characterEncoding=UTF-8"/>
+                <property name="username" value="root"/>
+                <property name="password" value="123456"/>
+            </dataSource>
+        </environment>
+    </environments>
+    <mappers>
+        <!--使用资源路径的方式来注册-->
+        <!--<mapper resource="com/yang/dao/UserMapper.xml"/>-->
+        <!--使用类的方式来注册-->
+        <!--使用包的方式来注册，和上面一样必须保证接口和配置文件都在同一个目录之下-->
+        <mapper class="com.yang.dao.UserMapper"/>
+        <!--<package name="com.yang.dao"/>-->
+    </mappers>
+</configuration>
